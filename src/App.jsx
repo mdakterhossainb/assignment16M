@@ -1,29 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import Contact from "./pages/Contact";
+import Products from "./components/products/Products";
 import "./App.css";
+import Placement from "./components/Placement/Placement";
+import { useState } from "react";
+const App = () => {
+  const [cart, setCart] = useState([]);
+  function addToCart(placement) {
+    setCart((prevCart) => [...prevCart, placement]);
+  }
 
-function App() {
   return (
-    <Router>
-      <div className="app-container">
-        <Header />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <div className="flex gap-4">
+      <Products addToCart={addToCart}></Products>
+      <Placement cart={cart}></Placement>
+    </div>
   );
-}
+};
 
 export default App;
